@@ -1,5 +1,23 @@
 .container {
   display: flex;
+  flex-direction: column;
   border: 3px solid #fb4b4b;
   border-radius: 5px;
+  width: fit-content;
+  margin: auto;
+
+  .row {
+    display: flex;
+    width: fit-content;
+
+    .cell {
+      border: 1px solid gray;
+      width: 30px;
+      height: 30px;
+
+      &.marked {
+        background-color: #fb4b4b;
+      }
+    }
+  }
 }
