@@ -1,38 +1,71 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.scss";
+import { move } from "./service";
+import { DIRECTIONS } from "./constants";
+
+const width = 10;
+const height = 25;
+const initialShape = [
+  {
+    i: -4,
+    j: 5,
+  },
+  {
+    i: -3,
+    j: 5,
+  },
+  {
+    i: -2,
+    j: 5,
+  },
+  {
+    i: -1,
+    j: 5,
+  },
+];
 
 function App() {
-  console.log("Rerendered!");
-  const width = 10;
-  const height = 20;
-  const [selectedRow, setSelectedRow] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [shape, setShape] = useState(initialShape);
+
   const [board, setBoard] = useState(() =>
     Array(height)
       .fill(null)
-      .map(() => Array(width).fill(null))
+      .map(() => Array(width).fill(false))
   );
 
-  let selectedJ = 5;
-  setTimeout(() => {
-    const newBoard = board.map((row, rowIndex) => {      
-      if ((rowIndex + 1) % height === selectedRow) {
-        return row.fill(false);
-      }
+  // useEffect(() => {
+  //   const eventHandler = ({ key }) => {
+  //     if (key === "ArrowLeft") {
+  //       if (selectedColumn > 0) {
+  //         setSelectedColumn(selectedColumn - 1);
+  //       }
+  //     }
 
-      if (rowIndex === selectedRow) {
-        return row.map((_, cellIndex) => {
-          if (cellIndex === selectedJ) {
-            return true;
-          }
-        });
-      }
+  //     if (key === "ArrowRight") {
+  //       if (selectedColumn < width - 1) {
+  //         setSelectedColumn(selectedColumn + 1);
+  //       }
+  //     }
+  //   };
 
-      return row;
-    });
+  //   document.addEventListener("keydown", eventHandler);
 
-    setBoard(newBoard);
-    setSelectedRow((selectedRow + 1) % height);
-  }, 200);
+  //   return () => {
+  //     document.removeEventListener("keydown", eventHandler);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    try {
+      const { newBoard, newShape } = move(board, shape, DIRECTIONS.DOWN);
+
+      setBoard(newBoard);
+      setShape(newShape);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   return (
     <div className="container">
