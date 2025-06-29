@@ -66,24 +66,17 @@ export const move = (board, shape, direction) => {
 
     const newBoard = [...board];
     const newShape = [];
-    [...shape]
-      .sort((a, b) => b.i - a.i)
-      .forEach(({ i, j }) => {
-        if (i >= 0) {
-          // clear mark from previous cell
-          newBoard[i] = [...board[i]];
-          newBoard[i][j] = false;
-        }
-      });
 
     const sortedShape = [...shape].sort((a, b) => b.i - a.i);
 
     sortedShape.forEach(({ i, j }) => {
       if (i >= 0 && i < board.length) {
+        newBoard[i] = [...board[i]];
         newBoard[i][j] = false;
       }
 
       if (i + 1 >= 0 && i + 1 < board.length) {
+        newBoard[i + 1] = [...board[i + 1]];
         newBoard[i + 1][j] = true;
       }
 

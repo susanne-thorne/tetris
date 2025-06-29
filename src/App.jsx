@@ -63,16 +63,33 @@ function App() {
       setBoard(newBoard);
       setShape(newShape);
     } catch (e) {
+      const unfinishedShape = shape.some(({ i }) => i < 0);
+      if (unfinishedShape) {
+        setIsGameOver(true);
+      } else {
+        const { newBoard, newShape } = move(
+          board,
+          initialShape,
+          DIRECTIONS.DOWN
+        );
+        setBoard(newBoard);
+        setShape(newShape);
+      }
       console.error(e);
     }
   };
 
   useEffect(() => {
+    if (isGameOver) {
+      return;
+    }
+
     moveDown();
+
     setTimeout(() => {
       setGoDownSteps(goDownSteps + 1);
     }, 500);
-  }, [goDownSteps]);
+  }, [goDownSteps, isGameOver]);
 
   return (
     <div className="container">
