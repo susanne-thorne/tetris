@@ -27,6 +27,7 @@ const initialShape = [
 function App() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [shape, setShape] = useState(initialShape);
+  const [goDownSteps, setGoDownSteps] = useState(0);
 
   const [board, setBoard] = useState(() =>
     Array(height)
@@ -56,16 +57,22 @@ function App() {
   //   };
   // }, []);
 
-  useEffect(() => {
+  const moveDown = () => {
     try {
       const { newBoard, newShape } = move(board, shape, DIRECTIONS.DOWN);
-
       setBoard(newBoard);
       setShape(newShape);
     } catch (e) {
       console.error(e);
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    moveDown();
+    setTimeout(() => {
+      setGoDownSteps(goDownSteps + 1);
+    }, 500);
+  }, [goDownSteps]);
 
   return (
     <div className="container">

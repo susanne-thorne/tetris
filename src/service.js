@@ -21,6 +21,7 @@ export const move = (board, shape, direction) => {
       // modify board if the cell is visible
       if (i >= 0) {
         // clear mark from previous cell
+        newBoard[i] = [...board[i]];
         newBoard[i][j] = false;
         // mark new cell
         newBoard[i][j - 1] = true;
@@ -45,6 +46,7 @@ export const move = (board, shape, direction) => {
       // modify board if the cell is visible
       if (i >= 0) {
         // clear mark from previous cell
+        newBoard[i] = [...board[i]];
         newBoard[i][j] = false;
         // mark new cell
         newBoard[i][j + 1] = true;
@@ -64,15 +66,16 @@ export const move = (board, shape, direction) => {
 
     const newBoard = [...board];
     const newShape = [];
-
-    shape.forEach(({ i, j }) => {
+    [...shape].reverse().forEach(({ i, j }) => {
       if (i >= 0) {
         // clear mark from previous cell
+        newBoard[i] = [...board[i]];
         newBoard[i][j] = false;
       }
 
       if (i + 1 >= 0) {
         // mark new cell
+        newBoard[i + 1] = [...board[i + 1]];
         newBoard[i + 1][j] = true;
       }
 
