@@ -66,7 +66,7 @@ export const move = (board, shape, direction) => {
 
     const newBoard = [...board];
     const newShape = [];
-    [...shape].reverse().forEach(({ i, j }) => {
+    [...shape].sort((a, b) => b.i - a.i).forEach(({ i, j }) => {
       if (i >= 0) {
         // clear mark from previous cell
         newBoard[i] = [...board[i]];
