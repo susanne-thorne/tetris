@@ -61,30 +61,27 @@ export const move = (board, shape, direction) => {
     return { newBoard, newShape };
   }
 
-  if (direction === DIRECTIONS.DOWN) {
-    validateDownMove(board, shape);
+if (direction === DIRECTIONS.DOWN) {
+  validateDownMove(board, shape);
 
-    const newBoard = [...board];
-    const newShape = [];
-    [...shape].reverse().forEach(({ i, j }) => {
-      if (i >= 0) {
-        // clear mark from previous cell
-        newBoard[i] = [...board[i]];
-        newBoard[i][j] = false;
-      }
+  const newBoard = board.map((row) => [...row]);
+  const newShape = [];
 
-      if (i + 1 >= 0) {
-        // mark new cell
-        newBoard[i + 1] = [...board[i + 1]];
-        newBoard[i + 1][j] = true;
-      }
+  const sortedShape = [...shape].sort((a, b) => b.i - a.i);
 
-      newShape.push({
-        i: i + 1,
-        j: j,
-      });
-    });
+  sortedShape.forEach(({ i, j }) => {
+    if (i >= 0 && i < board.length) {
+      newBoard[i][j] = false;
+    }
 
-    return { newBoard, newShape };
-  }
+    if (i + 1 >= 0 && i + 1 < board.length) {
+      newBoard[i + 1][j] = true;
+    }
+
+    newShape.push({ i: i + 1, j });
+  });
+
+  return { newBoard, newShape };
+}
+
 };
