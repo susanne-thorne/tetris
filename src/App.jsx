@@ -6,6 +6,7 @@ import { DIRECTIONS } from "./constants";
 const width = 10;
 const height = 20;
 
+
 const initialShape = [
   { i: -3, j: 5 },
   { i: -2, j: 5 },
