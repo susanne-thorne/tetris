@@ -1,8 +1,7 @@
 .container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  border: 3px solid #068b2e;
+  border: 3px solid #fb4b4b;
   border-radius: 5px;
   width: fit-content;
   margin: auto;
@@ -17,66 +16,8 @@
       height: 30px;
 
       &.marked {
-        background-color: #12e43f;
+        background-color: #fb4b4b;
       }
     }
-  }
-
-  .game-over {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 40px;
-  font-weight: bold;
-  color: white;
-  background-color: rgba(236, 2, 2, 0.8);
-  padding: 30px 60px;
-  border-radius: 12px;
-  text-align: center;
-  z-index: 10;
-  width: 200px;
-}
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(226, 247, 209, 0.6);
-  z-index: 5;
-}
-}
-
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.mini-board {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .title {
-    margin-bottom: 4px;
-    font-weight: bold;
-  }
-
-  .row {
-    display: flex;
-  }
-
-  .cell {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #9e9c9c;
-  }
-
-  .marked {
-    background-color: #fb4b4b;
   }
 }

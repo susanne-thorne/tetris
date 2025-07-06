@@ -2,15 +2,31 @@ import { useEffect, useState } from "react";
 import "./App.scss";
 import { move } from "./service";
 import { DIRECTIONS } from "./constants";
-import generateRandemShape from "./Shapes";
 
 const width = 10;
 const height = 25;
+const initialShape = [
+  {
+    i: -4,
+    j: 5,
+  },
+  {
+    i: -3,
+    j: 5,
+  },
+  {
+    i: -2,
+    j: 5,
+  },
+  {
+    i: -1,
+    j: 5,
+  },
+];
 
 function App() {
   const [isGameOver, setIsGameOver] = useState(false);
-  const [shape, setShape] = useState(generateRandemShape());
-  const [nextShape, setNextShape] = useState(generateRandemShape());
+  const [shape, setShape] = useState(initialShape);
   const [goDownSteps, setGoDownSteps] = useState(0);
 
   const [board, setBoard] = useState(() =>
@@ -18,6 +34,28 @@ function App() {
       .fill(null)
       .map(() => Array(width).fill(false))
   );
+
+  // useEffect(() => {
+  //   const eventHandler = ({ key }) => {
+  //     if (key === "ArrowLeft") {
+  //       if (selectedColumn > 0) {
+  //         setSelectedColumn(selectedColumn - 1);
+  //       }
+  //     }
+
+  //     if (key === "ArrowRight") {
+  //       if (selectedColumn < width - 1) {
+  //         setSelectedColumn(selectedColumn + 1);
+  //       }
+  //     }
+  //   };
+
+  //   document.addEventListener("keydown", eventHandler);
+
+  //   return () => {
+  //     document.removeEventListener("keydown", eventHandler);
+  //   };
+  // }, []);
 
   const moveDown = () => {
     try {
@@ -29,85 +67,39 @@ function App() {
       if (unfinishedShape) {
         setIsGameOver(true);
       } else {
-        const next = nextShape;
-        const newNext = generateRandemShape();
-        const newBoard = board.map((row) => [...row]);
-
-        const canPlace = next.every(({ i, j }) => {
-          return (
-            i < 0 ||
-            (i >= 0 && i < height && j >= 0 && j < width && !newBoard[i][j])
-          );
-        });
-
-        if (!canPlace) {
-          setIsGameOver(true);
-          return;
-        }
-
-        for (const { i, j } of next) {
-          if (i >= 0) {
-            newBoard[i][j] = true;
-          }
-        }
-
+        const { newBoard, newShape } = move(
+          board,
+          initialShape,
+          DIRECTIONS.DOWN
+        );
         setBoard(newBoard);
-        setShape(next);
-        setNextShape(newNext);
+        setShape(newShape);
       }
       console.error(e);
     }
   };
 
   useEffect(() => {
-    if (isGameOver) return;
+    if (isGameOver) {
+      return;
+    }
 
     moveDown();
-    const timeout = setTimeout(() => {
-      setGoDownSteps((prev) => prev + 1);
-    }, 100);
 
-    return () => clearTimeout(timeout);
+    setTimeout(() => {
+      setGoDownSteps(goDownSteps + 1);
+    }, 500);
   }, [goDownSteps, isGameOver]);
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        {isGameOver && <div className="game-over">Game Over</div>}
-        {isGameOver && <div className="overlay" />}
-        {board.map((row, i) => (
-          <div className="row" key={i}>
-            {row.map((cell, j) => (
-              <div
-                className={`cell ${cell === true ? "marked" : ""}`}
-                key={j}
-              ></div>
-            ))}
-          </div>
-        ))}
-      </div>
-
-     
-      <div className="mini-board">
-        <div className="title">Next:</div>
-        {[...Array(4)].map((_, i) => (
-          <div className="row" key={i}>
-            {[...Array(4)].map((_, j) => {
-              const minI = Math.min(...nextShape.map((cell) => cell.i));
-              const minJ = Math.min(...nextShape.map((cell) => cell.j));
-              const isMarked = nextShape.some(
-                (cell) => cell.i - minI === i && cell.j - minJ === j
-              );
-              return (
-                <div
-                  key={j}
-                  className={`cell ${isMarked ? "marked" : ""}`}
-                ></div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+    <div className="container">
+      {board.map((row) => (
+        <div className="row">
+          {row.map((cell) => (
+            <div className={`cell ${cell === true ? "marked" : ""}`}></div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
