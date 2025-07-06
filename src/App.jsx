@@ -80,6 +80,7 @@ function App() {
         setBoard(updatedBoard);
         boardRef.current = updatedBoard;
 
+        
         setShape(nextShape);
         shapeRef.current = nextShape;
 
