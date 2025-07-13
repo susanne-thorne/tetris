@@ -4,25 +4,24 @@ import { move } from "./service";
 import { DIRECTIONS } from "./constants";
 
 const width = 10;
-const height = 25;
+const height = 20;
+
 const initialShape = [
-  {
-    i: -4,
-    j: 5,
-  },
-  {
-    i: -3,
-    j: 5,
-  },
-  {
-    i: -2,
-    j: 5,
-  },
-  {
-    i: -1,
-    j: 5,
-  },
+  { i: -3, j: 5 },
+  { i: -2, j: 5 },
+  { i: -1, j: 5 },
+  { i: 0, j: 5 },
 ];
+
+function getMergedBoard(board, shape) {
+  const merged = board.map((row) => [...row]);
+  shape.forEach(({ i, j }) => {
+    if (i >= 0 && i < height && j >= 0 && j < width) {
+      merged[i][j] = true;
+    }
+  });
+  return merged;
+}
 
 function App() {
   const [isGameOver, setIsGameOver] = useState(false);
@@ -34,28 +33,6 @@ function App() {
       .fill(null)
       .map(() => Array(width).fill(false))
   );
-
-  // useEffect(() => {
-  //   const eventHandler = ({ key }) => {
-  //     if (key === "ArrowLeft") {
-  //       if (selectedColumn > 0) {
-  //         setSelectedColumn(selectedColumn - 1);
-  //       }
-  //     }
-
-  //     if (key === "ArrowRight") {
-  //       if (selectedColumn < width - 1) {
-  //         setSelectedColumn(selectedColumn + 1);
-  //       }
-  //     }
-  //   };
-
-  //   document.addEventListener("keydown", eventHandler);
-
-  //   return () => {
-  //     document.removeEventListener("keydown", eventHandler);
-  //   };
-  // }, []);
 
   const moveDown = () => {
     try {
@@ -91,12 +68,16 @@ function App() {
     }, 500);
   }, [goDownSteps, isGameOver]);
 
+  const mergedBoard = getMergedBoard(board, shape);
+
   return (
     <div className="container">
-      {board.map((row) => (
-        <div className="row">
-          {row.map((cell) => (
-            <div className={`cell ${cell === true ? "marked" : ""}`}></div>
+      {isGameOver && <div className="game-over">Game Over</div>}
+
+      {mergedBoard.map((row, i) => (
+        <div className="row" key={i}>
+          {row.map((cell, j) => (
+            <div className={`cell ${cell ? "marked" : ""}`} key={j}></div>
           ))}
         </div>
       ))}
