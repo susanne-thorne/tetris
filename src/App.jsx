@@ -44,6 +44,7 @@ function App() {
       if (unfinishedShape) {
         setIsGameOver(true);
       } else {
+        try {
         const { newBoard, newShape } = move(
           board,
           initialShape,
@@ -51,7 +52,10 @@ function App() {
         );
         setBoard(newBoard);
         setShape(newShape);
+      } catch {
+        setIsGameOver(true)
       }
+    }
     }
   };
 
