@@ -39,7 +39,7 @@ function App() {
       const { newBoard, newShape } = move(board, shape, DIRECTIONS.DOWN);
       setBoard(newBoard);
       setShape(newShape);
-    } catch (e) {
+    } catch {
       const unfinishedShape = shape.some(({ i }) => i < 0);
       if (unfinishedShape) {
         setIsGameOver(true);
@@ -52,7 +52,6 @@ function App() {
         setBoard(newBoard);
         setShape(newShape);
       }
-      console.error(e);
     }
   };
 
@@ -66,6 +65,7 @@ function App() {
     setTimeout(() => {
       setGoDownSteps(goDownSteps + 1);
     }, 500);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [goDownSteps, isGameOver]);
 
   const mergedBoard = getMergedBoard(board, shape);
