@@ -7,10 +7,10 @@ const width = 10;
 const height = 20;
 
 const initialShape = [
+  { i: -4, j: 5 },
   { i: -3, j: 5 },
   { i: -2, j: 5 },
   { i: -1, j: 5 },
-  { i: 0, j: 5 },
 ];
 
 function getMergedBoard(board, shape) {
@@ -45,17 +45,17 @@ function App() {
         setIsGameOver(true);
       } else {
         try {
-        const { newBoard, newShape } = move(
-          board,
-          initialShape,
-          DIRECTIONS.DOWN
-        );
-        setBoard(newBoard);
-        setShape(newShape);
-      } catch {
-        setIsGameOver(true)
+          const { newBoard, newShape } = move(
+            board,
+            initialShape,
+            DIRECTIONS.DOWN
+          );
+          setBoard(newBoard);
+          setShape(newShape);
+        } catch {
+          setIsGameOver(true);
+        }
       }
-    }
     }
   };
 
@@ -69,7 +69,7 @@ function App() {
     setTimeout(() => {
       setGoDownSteps(goDownSteps + 1);
     }, 500);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [goDownSteps, isGameOver]);
 
   const mergedBoard = getMergedBoard(board, shape);
