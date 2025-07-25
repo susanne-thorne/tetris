@@ -9,80 +9,93 @@ import {
 
 export const move = (board, shape, direction) => {
   validateBoard(board);
-  validateShape(shape);
+  validateShape(shape.blocks);
 
   if (direction === DIRECTIONS.LEFT) {
-    validateLeftMove(board, shape);
+    validateLeftMove(board, shape.blocks);
 
-    const newBoard = [...board];
-    const newShape = [];
+    const newBoard = board.map(row => [...row]);
+    const newBlocks = [];
 
-    shape.forEach(({ i, j }) => {
-      // modify board if the cell is visible
+    shape.blocks.forEach(({ i, j }) => {
       if (i >= 0) {
-        // clear mark from previous cell
-        newBoard[i] = [...board[i]];
         newBoard[i][j] = false;
-        // mark new cell
         newBoard[i][j - 1] = true;
       }
-
-      newShape.push({
-        i: i,
-        j: j - 1,
-      });
+      newBlocks.push({ i, j: j - 1 });
     });
 
-    return { newBoard, newShape };
+    return {
+      newBoard,
+      newShape: {
+        blocks: newBlocks,
+        rotationCenter: {
+          i: shape.rotationCenter.i,
+          j: shape.rotationCenter.j - 1,
+        }
+      }
+    };
   }
 
   if (direction === DIRECTIONS.RIGHT) {
-    validateRightMove(board, shape);
+    validateRightMove(board, shape.blocks);
 
-    const newBoard = [...board];
-    const newShape = [];
+    const newBoard = board.map(row => [...row]);
+    const newBlocks = [];
 
-    shape.forEach(({ i, j }) => {
-      // modify board if the cell is visible
+    shape.blocks.forEach(({ i, j }) => {
       if (i >= 0) {
-        // clear mark from previous cell
-        newBoard[i] = [...board[i]];
         newBoard[i][j] = false;
-        // mark new cell
         newBoard[i][j + 1] = true;
       }
-
-      newShape.push({
-        i: i,
-        j: j + 1,
-      });
+      newBlocks.push({ i, j: j + 1 });
     });
 
-    return { newBoard, newShape };
+    return {
+      newBoard,
+      newShape: {
+        blocks: newBlocks,
+        rotationCenter: {
+          i: shape.rotationCenter.i,
+          j: shape.rotationCenter.j + 1,
+        }
+      }
+    };
   }
 
   if (direction === DIRECTIONS.DOWN) {
-    validateDownMove(board, shape);
+    validateDownMove(board, shape.blocks);
 
     const newBoard = [...board];
-    const newShape = [];
+    const newBlocks = [];
 
-    const sortedShape = [...shape].sort((a, b) => b.i - a.i);
+    const sortedBlocks = [...shape.blocks].sort((a, b) => b.i - a.i);
 
-    sortedShape.forEach(({ i, j }) => {
+    sortedBlocks.forEach(({ i, j }) => {
       if (i >= 0 && i < board.length) {
-        newBoard[i] = [...board[i]];
+        newBoard[i] = [...newBoard[i]];
         newBoard[i][j] = false;
       }
 
       if (i + 1 >= 0 && i + 1 < board.length) {
-        newBoard[i + 1] = [...board[i + 1]];
+        newBoard[i + 1] = [...newBoard[i + 1]];
         newBoard[i + 1][j] = true;
       }
 
-      newShape.push({ i: i + 1, j });
+      newBlocks.push({ i: i + 1, j });
     });
 
-    return { newBoard, newShape };
+    const newRotationCenter = {
+      i: shape.rotationCenter.i + 1,
+      j: shape.rotationCenter.j,
+    };
+
+    return {
+      newBoard,
+      newShape: {
+        blocks: newBlocks,
+        rotationCenter: newRotationCenter,
+      },
+    };
   }
 };
