@@ -21,19 +21,21 @@ export default function ShapePreview({ shape }) {
   adjustedBlocks.forEach(({ i, j }) => {
     const x = i - minI;
     const y = j - minJ;
-    previewGrid[x][y] = true;
+    previewGrid[x][y] = {
+        marked: true,
+        type: shape.name,
+      };;
   });
 
   return (
     <div className="preview-container">
-      <div className="preview-title">Next</div>
       <div className="shape">
         {previewGrid.map((row, i) => (
           <div key={i} className="shape-row">
             {row.map((cell, j) => (
               <div
                 key={j}
-                className={`shape-cell ${cell ? "marked" : ""}`}
+                className={`shape-cell ${cell.marked ? `marked ${cell.type}` : ""}`}
               ></div>
             ))}
           </div>

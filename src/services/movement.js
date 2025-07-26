@@ -20,7 +20,10 @@ export const move = (board, shape, direction) => {
     shape.blocks.forEach(({ i, j }) => {
       if (i >= 0) {
         newBoard[i][j] = false;
-        newBoard[i][j - 1] = true;
+        newBoard[i][j - 1] = {
+          marked: true,
+          type: shape.name,
+      };
       }
       newBlocks.push({ i, j: j - 1 });
     });
@@ -28,6 +31,7 @@ export const move = (board, shape, direction) => {
     return {
       newBoard,
       newShape: {
+        name: shape.name,
         blocks: newBlocks,
         rotationCenter: {
           i: shape.rotationCenter.i,
@@ -46,7 +50,10 @@ export const move = (board, shape, direction) => {
     shape.blocks.forEach(({ i, j }) => {
       if (i >= 0) {
         newBoard[i][j] = false;
-        newBoard[i][j + 1] = true;
+        newBoard[i][j + 1] = {
+          marked: true,
+          type: shape.name,
+        };
       }
       newBlocks.push({ i, j: j + 1 });
     });
@@ -54,6 +61,7 @@ export const move = (board, shape, direction) => {
     return {
       newBoard,
       newShape: {
+        name: shape.name,
         blocks: newBlocks,
         rotationCenter: {
           i: shape.rotationCenter.i,
@@ -79,7 +87,10 @@ export const move = (board, shape, direction) => {
 
       if (i + 1 >= 0 && i + 1 < board.length) {
         newBoard[i + 1] = [...newBoard[i + 1]];
-        newBoard[i + 1][j] = true;
+        newBoard[i + 1][j] = {
+          marked: true,
+          type: shape.name,
+        };
       }
 
       newBlocks.push({ i: i + 1, j });
@@ -88,6 +99,7 @@ export const move = (board, shape, direction) => {
     return {
       newBoard,
       newShape: {
+        name: shape.name,
         blocks: newBlocks,
         rotationCenter: {
           i: shape.rotationCenter.i + 1,
@@ -98,7 +110,7 @@ export const move = (board, shape, direction) => {
   }
 };
 
-export function rotateShape({ blocks, rotationCenter }) {
+export function rotateShape({ name, blocks, rotationCenter }) {
   const { i: ci, j: cj } = rotationCenter;
 
   const rotatedBlocks = blocks.map(({ i, j }) => {
@@ -112,6 +124,7 @@ export function rotateShape({ blocks, rotationCenter }) {
   });
 
   return {
+    name: name,
     blocks: rotatedBlocks,
     rotationCenter: { i: ci, j: cj },
   };

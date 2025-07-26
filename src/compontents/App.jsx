@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "../App.scss";
 import MainMenu from "./Menus/MainMenu";
-import PauseMenu from "./Menus/PauseMenu";
 import GameOverScreen from "./Menus/GameOverScreen";
 import Game from "./Game/Game";
+import FloatingBlocks from "./FloatingBlocks";
+import { shapes } from "../services/shapes";
 
 function App() {
   const [gameState, setGameState] = useState("mainMenu");
@@ -15,33 +16,30 @@ function App() {
   }
 
   return (
-    <div className="container">
-      {gameState === "mainMenu" && (
-        <MainMenu startGame={startNewGame} />
-      )}
+    <>
+      <FloatingBlocks shapes={shapes} />
+      
+      <div className="container">
+        {gameState === "mainMenu" && (
+          <MainMenu startGame={startNewGame} />
+        )}
 
-      {(gameState === "playing" || gameState === "paused") && (
-        <Game
-          key={gameSessionId}
-          setGameState={setGameState}
-          gameState={gameState}
-        />
-      )}
+        {(gameState === "playing" || gameState === "paused") && (
+          <Game
+            key={gameSessionId}
+            setGameState={setGameState}
+            gameState={gameState}
+          />
+        )}
 
-      {gameState === "paused" && (
-        <PauseMenu
-          onResume={() => setGameState("playing")}
-          onQuit={() => setGameState("mainMenu")}
-        />
-      )}
-
-      {gameState === "gameOver" && (
-        <GameOverScreen
-          onRetry={startNewGame}
-          onQuit={() => setGameState("mainMenu")}
-        />
-      )}
-    </div>
+        {gameState === "gameOver" && (
+          <GameOverScreen
+            onRetry={startNewGame}
+            onQuit={() => setGameState("mainMenu")}
+          />
+        )}
+      </div>
+    </>
   );
 }
 

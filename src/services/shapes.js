@@ -69,7 +69,9 @@ export function generateRandomShape() {
   const randomShapeInitial = shapeInitials[Math.floor(Math.random() * shapeInitials.length)];
 
   const shape = shapes[randomShapeInitial];
+
   return {
+    name: randomShapeInitial,
     blocks: shape.blocks.map(({ i, j }) => ({ i, j })),
     rotationCenter: { ...shape.rotationCenter },
   };

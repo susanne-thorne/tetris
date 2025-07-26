@@ -13,7 +13,10 @@ function getMergedBoard(board, shape) {
   const merged = board.map((row) => [...row]);
   shape.blocks.forEach(({ i, j }) => {
     if (i >= 0 && i < height && j >= 0 && j < width) {
-      merged[i][j] = true;
+      merged[i][j] = {
+        marked: true,
+        type: shape.name,
+      };
     }
   });
   return merged;
@@ -86,22 +89,39 @@ export default function Game({ gameState, setGameState }) {
   const mergedBoard = getMergedBoard(board, shape);
 
   return (
-    <div className="game-container">
-      <div className="sidebar">
-        <button className="pause-button" onClick={() => setGameState("paused")}>
-          ⏸ Pause
-        </button>
+    <div className="game-layout">
+      <div className="left-hud">
         <Score score={score} />
-        <ShapePreview shape={nextShape} />
+        {gameState === "paused" ? (
+          <>
+            <button className="pause-button" onClick={() => setGameState("playing")}>
+              ▶ Resume
+            </button>
+            <button className="quit-button" onClick={() => setGameState("mainMenu")}>
+              ✖ Quit to Menu
+            </button>
+          </>
+        ) : (
+          <button className="pause-button" onClick={() => setGameState("paused")}>
+            ⏸ Pause
+          </button>
+        )}
       </div>
-      <div className="board">
-        {mergedBoard.map((row, i) => (
-          <div className="row" key={i}>
-            {row.map((cell, j) => (
-              <div className={`cell ${cell ? "marked" : ""}`} key={j}></div>
+      <div className="game-container">
+        {mergedBoard.map((row, rowIndex) => (
+          <div key={rowIndex} className="row">
+            {row.map((cell, colIndex) => (
+              <div
+                key={colIndex}
+                className={`cell ${cell.marked ? `marked ${cell.type}` : ''}`}
+              />
             ))}
           </div>
         ))}
+      </div>
+      <div className="right-hud">
+        <div className="preview-title">Next</div>
+        <ShapePreview shape={nextShape} />
       </div>
     </div>
   );
