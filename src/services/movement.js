@@ -1,5 +1,4 @@
 import { DIRECTIONS } from "./constants";
-import { generateRandomShape } from "./shapes";
 import {
   validateBoard,
   validateDownMove,
@@ -86,16 +85,14 @@ export const move = (board, shape, direction) => {
       newBlocks.push({ i: i + 1, j });
     });
 
-    const newRotationCenter = {
-      i: shape.rotationCenter.i + 1,
-      j: shape.rotationCenter.j,
-    };
-
     return {
       newBoard,
       newShape: {
         blocks: newBlocks,
-        rotationCenter: newRotationCenter,
+        rotationCenter: {
+          i: shape.rotationCenter.i + 1,
+          j: shape.rotationCenter.j,
+        }
       },
     };
   }
@@ -140,45 +137,12 @@ export function dropShapeFast(board, shape, setBoard, setShape) {
 }
 
 export function clearFullRows(board) {
-  const newBoard = board.filter(row => row.some(cell => !cell)); // keep non-full rows
+  const newBoard = board.filter(row => row.some(cell => !cell));
   const clearedLines = board.length - newBoard.length;
 
   for (let i = 0; i < clearedLines; i++) {
-    newBoard.unshift(new Array(board[0].length).fill(false)); // insert empty rows at the top
+    newBoard.unshift(new Array(board[0].length).fill(false));
   }
 
   return newBoard;
 }
-
-export function moveDown(board, shape, setIsGameOver, setBoard, setShape) {
-    try {
-      const { newBoard, newShape } = move(board, shape, DIRECTIONS.DOWN);
-      setBoard(newBoard);
-      setShape(newShape);
-    } catch {
-      const unfinishedShape = shape.blocks.some(({ i }) => i < 0);
-      if (unfinishedShape) {
-        setIsGameOver(true);
-      } else {
-        // Shape is settled
-        let settledBoard = [...board.map(row => [...row])];
-
-        // Clear filled rows
-        const clearedBoard = clearFullRows(settledBoard);
-
-        // Generate next shape
-        try {
-          const { newBoard: postDropBoard, newShape } = move(
-            clearedBoard,
-            generateRandomShape(),
-            DIRECTIONS.DOWN
-          );
-
-          setBoard(postDropBoard);
-          setShape(newShape);
-        } catch {
-          setIsGameOver(true);
-        }
-      }
-    }
-  }
