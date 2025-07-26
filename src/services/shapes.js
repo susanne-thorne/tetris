@@ -64,11 +64,10 @@ export const shapes = {
   },
 };
 
-export function generateRandomShape(shapes) {
+export function generateRandomShape() {
   const shapeInitials = Object.keys(shapes);
   const randomShapeInitial = shapeInitials[Math.floor(Math.random() * shapeInitials.length)];
 
-  // Return deep copy to avoid mutation bugs
   const shape = shapes[randomShapeInitial];
   return {
     blocks: shape.blocks.map(({ i, j }) => ({ i, j })),
