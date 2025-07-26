@@ -7,7 +7,7 @@ export default function FloatingBlocks({shapes}) {
   );
 
   return (
-    <div className="ambient">
+    <div className="floating-blocks">
     {Array.from({ length: 18 }).map((_, i) => {
       const shape = shapeList[Math.floor(Math.random() * shapeList.length)];
       const top = `${Math.random() * 100}%`;

@@ -1,9 +1,8 @@
-export default function Score({ score }) {
+export default function Score({ score, highScore }) {
   return (
-    <>
-      <div className="score-label">Score</div>
-      <div className="score-value">{score}</div>
-    </>
+    <div className="score">
+      <div>Score: {score}</div>
+      <div>High Score: {highScore}</div>
+    </div>
   );
 }
-

@@ -3,14 +3,15 @@ import { height, width } from "../compontents/Game/Game";
 import { DIRECTIONS } from "./constants";
 import { rotateShape, move, dropShapeFast } from "./movement";
 
-export function handleKeyboardControls({ shape, board, isGameOver, setBoard, setShape, gameState }) {
+export function HandleKeyboardControls({ shape, board, isGameOver, setBoard, setShape, gameState }) {
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (isGameOver) return;
       if (gameState !== "playing") return;
 
       if (e.code === "ArrowUp") {
-        const rotatedShape = rotateShape(shape);
+        const rotatedShape = rotateShape(shape, board);
+
         const clearedBoard = [...board.map(row => [...row])];
 
         shape.blocks.forEach(({ i, j }) => {
@@ -21,7 +22,10 @@ export function handleKeyboardControls({ shape, board, isGameOver, setBoard, set
 
         rotatedShape.blocks.forEach(({ i, j }) => {
           if (i >= 0 && i < height && j >= 0 && j < width) {
-            clearedBoard[i][j] = true;
+            clearedBoard[i][j] = {
+              marked: true,
+              type: shape.name,
+            };
           }
         });
 
@@ -48,5 +52,5 @@ export function handleKeyboardControls({ shape, board, isGameOver, setBoard, set
 
     document.addEventListener("keyup", handleKeyPress);
     return () => document.removeEventListener("keyup", handleKeyPress);
-  }, [shape, board, isGameOver]);
+  }, [shape, board, isGameOver, gameState, setBoard, setShape]);
 }

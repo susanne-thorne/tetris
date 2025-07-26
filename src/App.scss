@@ -1,6 +1,6 @@
 body {
   background: radial-gradient(ellipse at center, #0d0d0d 0%, #000000 100%);
-  color: #00ff88;
+  color: #00ffcc;
   font-family: 'Orbitron', sans-serif;
   min-height: 100vh;
   overflow: hidden;
@@ -20,8 +20,8 @@ body {
     display: grid;
     gap: 1px;
     background-color: #0d0d0d;
-    border: 2px solid #00ff88;
-    box-shadow: 0 0 12px #00ff88;
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 12px #00ffcc;
     padding: 4px;
   }
 
@@ -45,9 +45,6 @@ body {
     width: fit-content;
 
     .cell {
-      // border: 1px solid gray;
-      // width: 30px;
-      // height: 30px;
       width: 30px;
       height: 30px;
       background-color: rgba(0, 0, 0, 0.8);
@@ -86,9 +83,9 @@ body {
   }
 
   &.S {
-    color: #00ff88;
+    color: #00ffcc;
     background: rgb(0 255 136 / 41%);
-    box-shadow: 0 0 4px #00ff88, inset 0 0 4px #00ff88;
+    box-shadow: 0 0 4px #00ffcc, inset 0 0 4px #00ffcc;
     background-image: linear-gradient(to bottom right, rgba(0, 255, 136, 0.3), rgba(0, 159, 102, 0.6));
   }
 
@@ -134,19 +131,6 @@ body {
   display: flex;
 }
 
-// .shape-cell {
-//   width: 15px;
-//   height: 15px;
-//   // border: 1px solid #888;
-//   border:unset;
-//   background-color: transparent;
-// }
-
-// .shape-cell.marked {
-//   background-color: limegreen;
-//   border: 1px solid #888;
-// }
-
 .shape-cell {
   width: 16px;
   height: 16px;
@@ -154,14 +138,12 @@ body {
 }
 
 .shape-cell.marked {
-  background-color: #00ff88;
-  // box-shadow: 0 0 4px #00ff88;
-  // border: 1px solid #888;
+  background-color: #00ffcc;
   border: 1px solid rgba(0, 255, 136, 0.08);
   box-shadow:
-    0 0 6px #00ff88,
-    inset 0 0 4px #00ff88;
-  background-image: linear-gradient(to bottom right, #00ff88, #009f66);
+    0 0 6px #00ffcc,
+    inset 0 0 4px #00ffcc;
+  background-image: linear-gradient(to bottom right, #00ffcc, #009f66);
   border-radius:2px;
 }
 
@@ -188,32 +170,32 @@ body {
 }
 
 .menu {
-  border: 2px solid #00ff88;
+  border: 2px solid #00ffcc;
   border-radius: 10px;
   padding: 2rem;
   margin: 5rem auto;
   width: fit-content;
   background: #000;
-  color: #00ff88;
-  box-shadow: 0 0 20px #00ff8866;
+  color: #00ffcc;
+  box-shadow: 0 0 20px #00ffcc66;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  font-family: 'Orbitron', sans-serif; // Optional futuristic font
+  font-family: 'Orbitron', sans-serif;
 }
 
 .menu h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: #00ff88;
-  text-shadow: 0 0 10px #00ff88;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
 }
 
 .menu button {
   background: transparent;
-  color: #00ff88;
-  border: 1px solid #00ff88;
+  color: #00ffcc;
+  border: 1px solid #00ffcc;
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
   border-radius: 5px;
@@ -223,11 +205,11 @@ body {
 }
 
 .menu button:hover {
-  background-color: #00ff8844;
-  box-shadow: 0 0 10px #00ff88;
+  background-color: #00ffcc44;
+  box-shadow: 0 0 10px #00ffcc;
 }
 
-.ambient {
+.floating-blocks {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
@@ -260,8 +242,8 @@ body {
   position: absolute;
   width: 12px;
   height: 12px;
-  border: 0.5px solid #00ff88;
-  box-shadow: 0 0 4px #00ff88aa;
+  border: 0.5px solid #00ffcc;
+  box-shadow: 0 0 4px #00ffccaa;
   border-radius: 1px;
 }
 
@@ -281,11 +263,11 @@ body {
 
 .popup {
   background: #000;
-  border: 2px solid #00ff88;
+  border: 2px solid #00ffcc;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 0 20px #00ff88;
-  color: #00ff88;
+  box-shadow: 0 0 20px #00ffcc;
+  color: #00ffcc;
   font-family: 'Orbitron', sans-serif;
   text-align: center;
   animation: fadeIn 0.3s ease-out;
@@ -297,16 +279,16 @@ body {
   button {
     margin-top: 1rem;
     background: transparent;
-    color: #00ff88;
-    border: 1px solid #00ff88;
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
     padding: 0.4rem 1rem;
     border-radius: 5px;
     cursor: pointer;
     font-family: inherit;
 
     &:hover {
-      background-color: #00ff8844;
-      box-shadow: 0 0 10px #00ff88;
+      background-color: #00ffcc44;
+      box-shadow: 0 0 10px #00ffcc;
     }
   }
 }
@@ -322,15 +304,15 @@ body {
   align-items: flex-start;
   gap: 2rem;
   margin-top: 2rem;
-  flex-wrap: wrap; // Enables mobile stacking
+  flex-wrap: wrap;
 }
 
-.left-hud,
-.right-hud {
+.left-sidebar,
+.right-sidebar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #00ff88;
+  color: #00ffcc;
   font-family: 'Orbitron', sans-serif;
   min-width: 100px;
 }
@@ -338,47 +320,29 @@ body {
 .score-label {
   font-weight: bold;
   font-size: 1.2rem;
-  text-shadow: 0 0 10px #00ff88;
+  text-shadow: 0 0 10px #00ffcc;
   margin-bottom: 0.5rem;
 }
 
 .score-value {
   font-size: 2rem;
   margin-bottom: 1rem;
-  text-shadow: 0 0 6px #00ff88;
+  text-shadow: 0 0 6px #00ffcc;
 }
 
 .preview-title {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 10px #00ff88;
+  text-shadow: 0 0 10px #00ffcc;
 }
-
-// .pause-button {
-//   margin-top: 10px;
-//   background-color: transparent;
-//   color: #00ff88;
-//   border: 2px solid #00ff88;
-//   padding: 6px 12px;
-//   border-radius: 6px;
-//   font-family: inherit;
-//   font-size: 1rem;
-//   cursor: pointer;
-//   transition: all 0.2s ease;
-
-//   &:hover {
-//     background-color: #00ff8844;
-//     box-shadow: 0 0 10px #00ff88;
-//   }
-// }
 
 .pause-button,
 .quit-button {
   margin-top: 10px;
   background-color: transparent;
-  color: #00ff88;
-  border: 2px solid #00ff88;
+  color: #00ffcc;
+  border: 2px solid #00ffcc;
   padding: 6px 12px;
   border-radius: 6px;
   font-family: 'Orbitron', sans-serif;
@@ -389,8 +353,8 @@ body {
   text-align: center;
 
   &:hover {
-    background-color: #00ff8844;
-    box-shadow: 0 0 10px #00ff88;
+    background-color: #00ffcc44;
+    box-shadow: 0 0 10px #00ffcc;
   }
 }
 
@@ -413,8 +377,8 @@ body {
     gap: 1rem;
   }
 
-  .left-hud,
-  .right-hud {
+  .left-sidebar,
+  .right-sidebar {
     flex-direction: row;
     justify-content: center;
     gap: 2rem;
@@ -427,20 +391,20 @@ body {
 }
 
 .cell.ghost {
-  opacity: 0.3;
-  border: 1px dashed currentColor;
+  box-shadow: 0 0 4px currentColor, inset 0 0 4px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  opacity: 0.5;
   background: transparent;
   background-image: none;
-  box-shadow: none;
   pointer-events: none;
 
-  &.I { color: #00f0f0; }
-  &.O { color: #ffff00; }
-  &.T { color: #bf00ff; }
-  &.S { color: #00ff88; }
-  &.Z { color: #ff0066; }
-  &.J { color: #3399ff; }
-  &.L { color: #ff9900; }
+  &.I { box-shadow: 0 0 4px #00f0f0, inset 0 0 4px #00f0f0; }
+  &.O { box-shadow: 0 0 4px #ffff00, inset 0 0 4px #ffff00; }
+  &.T { box-shadow: 0 0 4px #bf00ff, inset 0 0 4px #bf00ff; }
+  &.S { box-shadow: 0 0 4px #00ffcc, inset 0 0 4px #00ffcc; }
+  &.Z { box-shadow: 0 0 4px #ff0066, inset 0 0 4px #ff0066; }
+  &.J { box-shadow: 0 0 4px #0066ff, inset 0 0 4px #0066ff; }
+  &.L { box-shadow: 0 0 4px #ff9900, inset 0 0 4px #ff9900; }
 }
 
 .game-over-overlay {
@@ -513,5 +477,78 @@ body {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+.row.clearing {
+  animation: matrixEvaporate 1s ease-in-out forwards;
+}
+
+@keyframes matrixEvaporate {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  30% {
+    filter: hue-rotate(100deg) brightness(1.2);
+    transform: translateY(-2px) scaleY(1.1);
+  }
+  60% {
+    filter: hue-rotate(200deg) brightness(0.8);
+    transform: translateY(5px) scaleY(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(20px) scaleY(0);
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.clearing .cell {
+  position: relative;
+  color: #00ff00;
+  background-color: black;
+  overflow: hidden;
+}
+
+.clearing .cell::after {
+  content: '░▒▓█▓▒░';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  line-height: 1;
+  color: #00ff00;
+  animation: flickerMatrix 0.6s steps(5, end) forwards;
+  opacity: 0.8;
+}
+
+@keyframes flickerMatrix {
+  0% {
+    content: '░▒▓';
+    opacity: 1;
+  }
+  25% {
+    content: '▓█▒';
+    opacity: 0.9;
+  }
+  50% {
+    content: '▒░▓';
+    opacity: 0.6;
+  }
+  75% {
+    content: '▓░▒';
+    opacity: 0.4;
+  }
+  100% {
+    content: '';
+    opacity: 0;
   }
 }
