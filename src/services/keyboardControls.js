@@ -50,7 +50,7 @@ export function HandleKeyboardControls({ shape, board, isGameOver, setBoard, set
       }
     };
 
-    document.addEventListener("keyup", handleKeyPress);
-    return () => document.removeEventListener("keyup", handleKeyPress);
+    document.addEventListener("keydown", handleKeyPress);
+    return () => document.removeEventListener("keydown", handleKeyPress);
   }, [shape, board, isGameOver, gameState, setBoard, setShape]);
 }
